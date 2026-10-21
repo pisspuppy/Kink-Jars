@@ -10,7 +10,7 @@ Make a picture of your own set of 28 jars. You can use the website on a phone or
 2. Pick a color. You can also use the color field and the Hue and Opacity controls.
 3. For each jar, tap a number from **0** (empty) to **5** (full). Tap **★ Favorite** for a jar that spills over.
 4. Tap a jar's name to change it. Use the **↑** and **↓** buttons to move it.
-5. Tap **Save my jars** to download your picture. Look in your browser's Downloads if you cannot find it.
+5. Tap **Save my jars**. On a phone, choose a save option in the share sheet, such as **Save Image** or **Save to Files**. On a computer, the picture downloads. You can also tap **Open image to save it** below the button and save it from your browser.
 
 On a phone, use **Fill jars** and **See preview** at the top to jump between editing and the picture.
 

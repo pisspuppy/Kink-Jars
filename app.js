@@ -27,6 +27,7 @@ const $ = id => document.getElementById(id);
 const canvas = $('poster');
 const ctx = canvas.getContext('2d');
 let drawTimer;
+let imageUrl;
 
 function persist() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -149,6 +150,70 @@ function saveSetup() {
   link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   $('setup-status').textContent = 'Setup download started. Share the JSON file with anyone who wants these jars.';
+}
+
+function posterFile() {
+  const data = canvas.toDataURL('image/png');
+  if (!data.startsWith('data:image/png;base64,')) throw new Error('Could not create PNG');
+  const binary = atob(data.slice(data.indexOf(',') + 1));
+  const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+  return new File([bytes], 'my-kink-jars.png', {type:'image/png'});
+}
+
+function clearImageLink() {
+  if (imageUrl) URL.revokeObjectURL(imageUrl);
+  imageUrl = undefined;
+  $('open-image').removeAttribute('href');
+  $('open-image').hidden = true;
+}
+
+function offerImageLink(file, message) {
+  clearImageLink();
+  imageUrl = URL.createObjectURL(file);
+  $('open-image').href = imageUrl;
+  $('open-image').hidden = false;
+  $('save-status').textContent = message;
+}
+
+async function savePoster() {
+  clearImageLink();
+  drawPoster();
+  let file;
+  try { file = posterFile(); }
+  catch {
+    $('save-status').textContent = 'Could not create the image. Please try again.';
+    return;
+  }
+
+  let useShare = false;
+  try {
+    useShare = matchMedia('(pointer: coarse)').matches &&
+      typeof navigator.share === 'function' &&
+      typeof navigator.canShare === 'function' &&
+      navigator.canShare({files:[file]});
+  } catch { /* Some browsers reject file sharing checks. Use the download link. */ }
+  if (useShare) {
+    offerImageLink(file, 'Choose a save option in the share sheet. You can also open the image below.');
+    try {
+      await navigator.share({files:[file]});
+      return;
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        $('save-status').textContent = 'Sharing canceled. You can tap Open image below to save it.';
+        return;
+      }
+      $('save-status').textContent = 'Sharing did not open. Tap Open image to save it from your browser.';
+      return;
+    }
+  }
+
+  offerImageLink(file, 'If the download does not appear, tap Open image to save it from your browser.');
+  const link = document.createElement('a');
+  link.href = imageUrl;
+  link.download = file.name;
+  document.body.append(link);
+  link.click();
+  link.remove();
 }
 
 async function loadSetup(file) {
@@ -360,13 +425,10 @@ function wireEvents() {
     row.querySelector('.jar-icon').innerHTML=jarSvg(state.scores[index],fillColor(),`question-${index}`);
     persist();queueDraw();
   });
-  $('save').addEventListener('click',()=>{
-    drawPoster();
-    const link=document.createElement('a');link.download='my-kink-jars.png';link.href=canvas.toDataURL('image/png');document.body.append(link);link.click();link.remove();
-  });
+  $('save').addEventListener('click',savePoster);
   $('reset').addEventListener('click',()=>{
     state.name='';state.color=PRESETS[0];state.opacity=100;Object.assign(picker,hsvFromHex(state.color));state.labels=[...DEFAULT_LABELS];state.scores=DEFAULT_LABELS.map(()=>0);
-    $('name').value='';$('setup-status').textContent='';$('clear-status').textContent='';renderSwatches();renderQuestions();updateColorUI();persist();window.scrollTo({top:0,behavior:'smooth'});
+    $('name').value='';$('setup-status').textContent='';$('clear-status').textContent='';$('save-status').textContent='';clearImageLink();renderSwatches();renderQuestions();updateColorUI();persist();window.scrollTo({top:0,behavior:'smooth'});
   });
 }
 

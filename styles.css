@@ -87,6 +87,10 @@ h2{font:700 27px/1.14 var(--font-display);letter-spacing:-.025em;margin:0 0 7px}
 .save-button{width:100%;height:82px;margin-top:16px;border:3px solid var(--ink);border-radius:16px;background:var(--accent);color:white;box-shadow:0 5px 0 var(--ink);font:700 27px var(--font-display)}
 .save-button:hover{filter:brightness(.97)}
 .save-button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.preview-panel .save-status{margin:12px 0 0;font-size:14px;font-weight:700}
+.save-status:empty{display:none}
+.open-image{display:inline-block;margin-top:8px;color:var(--ink);font-weight:800;text-decoration:underline}
+.open-image[hidden]{display:none}
 .preview-footer{display:flex;justify-content:space-between;gap:8px;color:#5b5651;font-size:14px;margin-top:18px}
 .preview-footer button{border:0;background:none;padding:0;text-decoration:underline;color:#5b5651}
 :focus-visible{outline:3px solid #3a86ff;outline-offset:3px}
