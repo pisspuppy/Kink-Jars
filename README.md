@@ -1,17 +1,27 @@
 # Kink Jars
 
-A local, single-page recreation of the [Kink Jars website](https://lockedtony.github.io/kink-jars/) with editable jar names. The 28 labels can each be changed to anything up to 40 characters. Name, color, opacity, labels, and fill levels stay in your browser's local storage. Choose a preset or use the color field, hue control, and opacity control to customize the jars.
+[Open the website](https://pisspuppy.github.io/Kink-Jars/)
 
-Each jar has a visible **0** for empty, levels **1–5**, and a **★** favorite level that lifts the lid and pours liquid down the side in the preview and PNG. Use the up and down arrows beside each jar number to reorder it; its fill level moves with it.
+Make a picture of your own set of 28 jars. You can use the website on a phone or computer.
 
-Use **Clear jars and descriptions** to empty every jar and blank all 28 descriptions. Your name and color stay in place.
+## Make your jars
 
-Open `index.html` directly in a browser, or run a local server:
+1. Add your name if you want it on the picture.
+2. Pick a color. You can also use the color field and the Hue and Opacity controls.
+3. For each jar, tap a number from **0** (empty) to **5** (full). Tap **★ Favorite** for a jar that spills over.
+4. Tap a jar's name to change it. Use the **↑** and **↓** buttons to move it.
+5. Tap **Save my jars** to download your picture. Look in your browser's Downloads if you cannot find it.
 
-```sh
-python3 -m http.server 8000
-```
+On a phone, use **Fill jars** and **See preview** at the top to jump between editing and the picture.
 
-Then visit `http://localhost:8000`. Use **Save my jars** to download a PNG. No build step or dependencies are needed. The optional Google Fonts request affects typography only; the page works offline with fallback fonts.
+## Keep or clear your choices
 
-Use **Save setup** to download a shareable `kink-jars-setup.json` file containing only the 28 descriptions. Another person can use **Load setup** to import that file. Loading replaces the descriptions and empties all jars; it keeps that person's own name and color.
+Your name, color, jar names, and fill levels are saved in the browser on the device you are using. They do not automatically appear on another device. Clearing your browser data may remove them.
+
+**Clear jars and descriptions** empties all the jars and removes their names. Your name and color stay. **Start over** resets everything.
+
+## Share jar names
+
+Tap **Save setup** to download a file containing only the 28 jar names. Send that file to someone who wants the same set of jars. It does not include your name, color, or fill levels.
+
+To use a setup file, tap **Load setup** and choose the file. The jar names will be replaced and all jars will be emptied. Your own name and color stay.
