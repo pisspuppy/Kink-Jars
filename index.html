@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fbf6ef" />
+    <title>Kink Jars — make your own</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <h1>Fill your <span>jars</span></h1>
+        <p>Pick a color, rate each jar from 0 (empty) to 5 (overflowing), or tap the star for a favorite that spills over. Then save your picture.</p>
+      </header>
+
+      <div class="layout">
+        <div class="editor">
+          <section class="panel" aria-labelledby="name-title">
+            <div class="step">Step 1</div>
+            <h2 id="name-title">What's your name?</h2>
+            <p>It goes on the blank line at the top. Nickname is fine, or leave it blank.</p>
+            <input id="name" class="name-input" type="text" placeholder="Your name" maxlength="32" autocomplete="off" aria-label="Your name" />
+          </section>
+
+          <section class="panel color-panel" aria-labelledby="color-title">
+            <div class="step">Step 2</div>
+            <h2 id="color-title">Pick your color</h2>
+            <div id="swatches" class="swatches" role="group" aria-label="Color choices"></div>
+            <div class="color-controls">
+              <div class="color-picker">
+                <div id="color-field" class="color-field" role="slider" tabindex="0" aria-label="Color field" aria-description="Drag to choose a color. Left and right arrows change saturation; up and down arrows change brightness." aria-valuemin="0" aria-valuemax="100"><span id="color-cursor" class="color-cursor" aria-hidden="true"></span></div>
+                <label class="picker-row" for="hue"><span>Hue</span><input id="hue" type="range" min="0" max="360" aria-label="Hue" /></label>
+                <label class="picker-row" for="opacity"><span>Opacity</span><input id="opacity" type="range" min="0" max="100" aria-label="Opacity" /><output id="opacity-value" for="opacity"></output></label>
+              </div>
+              <div id="color-jars" class="color-jars" aria-hidden="true"></div>
+            </div>
+            <div class="color-footer">
+              <input id="hex" type="text" inputmode="text" maxlength="7" spellcheck="false" aria-label="Color code" />
+            </div>
+          </section>
+
+          <section class="panel jars-panel" aria-labelledby="jars-title">
+            <div class="step">Step 3</div>
+            <h2 id="jars-title">Fill your jars</h2>
+            <p>Rename and reorder the jars, then tap 0–5 or the star for a favorite with a lifted lid and spilling liquid.</p>
+            <div class="setup-tools">
+              <div class="setup-copy">Share the jar descriptions</div>
+              <p>Save a setup file with just the descriptions. Loading one empties every jar.</p>
+              <div class="setup-actions">
+                <button id="save-setup" class="pill-button" type="button">Save setup</button>
+                <button id="load-setup" class="pill-button" type="button">Load setup</button>
+                <input id="setup-file" type="file" accept=".json,application/json" hidden aria-label="Choose a jar setup file" />
+              </div>
+              <p id="setup-status" class="setup-status" role="status" aria-live="polite"></p>
+            </div>
+            <div class="jar-actions">
+              <button id="clear-values" class="pill-button" type="button">Clear jars and descriptions</button>
+              <span id="clear-status" role="status" aria-live="polite"></span>
+            </div>
+            <div id="questions" class="questions"></div>
+          </section>
+        </div>
+
+        <aside class="preview-column">
+          <section class="panel preview-panel" aria-labelledby="preview-title">
+            <div class="step">Step 4</div>
+            <h2 id="preview-title">Your jars</h2>
+            <div class="poster-frame"><canvas id="poster" width="1400" height="1930" role="img" aria-label="Preview of your filled jars"></canvas></div>
+            <button id="save" class="save-button" type="button">Save my jars</button>
+            <div class="preview-footer"><span>Nothing leaves your device.</span><button id="reset" type="button">Start over</button></div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
