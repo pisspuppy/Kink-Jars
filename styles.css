@@ -53,6 +53,8 @@ h2{font:700 27px/1.14 var(--font-display);letter-spacing:-.025em;margin:0 0 7px}
 .jar-actions .pill-button{height:43px}
 #clear-status{color:#57534e;font-size:14px;font-weight:800}
 .questions{margin-top:11px}
+.back-to-preview{display:flex;align-items:center;justify-content:center;min-height:58px;margin-top:24px;border:2px solid var(--ink);border-radius:14px;background:var(--ink);color:#fff;font-weight:800;text-align:center;text-decoration:none}
+.back-to-preview:hover{background:#383838}
 .question{display:grid;grid-template-columns:74px minmax(0,1fr);column-gap:16px;align-items:start;min-height:165px;padding:16px 0 18px;border-bottom:2px dashed #e3e0da}
 .question:last-child{border-bottom:0;padding-bottom:0}
 .question .jar-icon{grid-column:1;grid-row:1/5;align-self:center}
